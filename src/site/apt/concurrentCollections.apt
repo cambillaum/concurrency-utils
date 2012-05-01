@@ -1,0 +1,45 @@
+  ------
+  Concurrent Collections
+  ------
+  Mathieu Cambillau
+  ------
+  2012-04-29
+  ------
+
+Concurrent Collections
+
+* Introduction
+
+  The library provides three concurrent collection classes:
+
+  * ConcurrentSet: provides a Set implementation backes by a ConcurrentHashMap.
+
+  * ReadWriteList: provides a List implementation with read/write 
+  synchronization mechanism.
+
+  * ReadWriteSet: provides a Set implementation with read/write
+  synchronization mechanism.
+
+* ConcurrentSet
+
+  Provides a Set implementation backed by a ConcurrentHashMap. ConcurrentSet 
+  provides full concurrency for reads and adjustable expected concurrency for
+  updates. Apart from its instanciation, this Set implementation can be used 
+  as any other Set implementation.
+
+* ReadWriteList
+
+  Provides a read/write synchronized List implementation. ReadWriteList 
+  provides full concurrency for reads and limits write operations to one
+  thread at a time to ensure data consistency. Apart from its instanciation,
+  this List implementation can be used as any other List implementation.
+
+* ReadWriteSet
+
+  Provides a read/write synchronized Set implementation. ReadWriteSet
+  provides a full concurrency for reads and limits write operations to
+  one at a time to ensure data consistency. Apart from its instanciation,
+  this List implementation can be used as any other List implementation.
+  This implementation has a smaller memory footprint than ConcurrentSet
+  but does not allow multiple write operations at a time. It is recommended
+  to use ConcurrentSet instead if memory is not a problem.

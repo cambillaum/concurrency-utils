@@ -1,0 +1,64 @@
+  ---
+  Read/Write Operations
+  ---
+  Mathieu Cambillau
+  ---
+  2012-04-29
+  ---
+
+Read/Write Operations
+
+* Introduction
+
+  The library provides an easy way of extending or composing your existing
+  classes with a read/write synchronization  mechanism similar as the one
+  provided by ReadWriteSet and ReadWriteList. The only classes you have to
+  use to do so are the following:
+
+  * ReadWriteSynchronizedOperator
+ 
+  * SynchronizedOperationWithoutResult
+
+  * SynchronizedOperationWithResult
+
+  Contrary to the java provided synchronized mechanism, using 
+  ReadWriteSynchronizedOperator allows an unlimited number of concurrent
+  reading threads, which can greatly improve performance of highly concurrent
+  applications. To ensure data consistency, only one thread can perform
+  write operations at a time.
+
+* Example
+
+  Here is an example of how you can make a class thread safe in a more
+  flexible and efficient way than using the java synchronized mechanism:
+
++--
+public class ConcurrentClass {
+
+   private ReadWriteSynchronizedOperator readWriteSynchronizedOperator = new ReadWriteSynchronizedOperator();
+
+    public String yourReadOperation() {
+        String result = this.readWriteSynchronizedOperator.doRead(new SynchronizedOperationWithResult<String>() {
+           @Override
+           public String doOperation() {
+               //Do your read operation instead
+               String result = "readString";
+               return result;
+           }
+        });
+        return result;
+    }
+
+    public String yourWriteOperation() {
+        String result = this.readWriteSynchronizedOperator.doWrite(new SynchronizedOperationWithResult<String>() {
+            @Override
+            public String doOperation() {
+                //Do you write operation instead
+                String result = "writtenString";
+                return result;
+            }
+        });
+        return result;
+    }
+ }
++--

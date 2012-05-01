@@ -1,0 +1,43 @@
+  ------
+  Multi Lock
+  ------
+  Mathieu Cambillau
+  ------
+  2012-04-29
+  ------
+
+Multi Lock
+
+* Introduction
+
+  MultiLock is an interface providing central locking capabilities that
+  can be shared across a whole application. This interface is especially
+  useful when you need to synchronize objects and cannot modify their code.
+  By instantiating one of this interface's implementation and making it
+  accessible through the ServletContext or Spring's ApplicationContext
+  or even through an application EJB, any component can acquire and release
+  locks attached to specific instances of a class.
+
+* Example
+
+  Here is an example of how you can use a MultiLock to protect against
+  concurrent modifications of instances in other parts of the application.
+
++--
+//Retrive MultiLock from context
+MultiLock<Integer> multiLock = acquireMultiLock();
+
+//Acquire locks
+multiLock.lock(1);
+multiLock.lock(2);
+multiLock.lock(3);
+
+//Here do operations on instances of some entity object
+//that have 1,2 and 3
+//as id and may be concurrent to other operations on these instances
+
+//Release locks
+multiLock.unLock(3);
+multiLock.unLock(2);
+multiLock.unLock(1);
++--
