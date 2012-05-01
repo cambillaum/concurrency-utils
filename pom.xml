@@ -30,6 +30,12 @@
         </developer>
     </developers>
     
+    <scm>
+        <url>http://github.com/cambillaum/concurrency-utils</url>
+        <connection>scm:git://github.com/cambillaum/concurrency-utils.git</connection>
+        <developerConnection></developerConnection>
+    </scm>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
